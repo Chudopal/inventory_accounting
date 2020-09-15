@@ -29,9 +29,9 @@ class IncomingInventorySet(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.ForeignKey(
-        "FoldingAccounting"
+        "FoldingAccounting",
+        on_delete=models.CASCADE,
     )
-    quantity = models.IntegerField()
 
 
 class OutcomingInvoices(models.Model):
