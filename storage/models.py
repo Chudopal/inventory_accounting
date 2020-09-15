@@ -8,6 +8,11 @@ class Storage(models.Model):
     phone_number = models.CharField(max_length=13)
 
 
+class Product(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=30)
+
+
 class IncomingInvoices(models.Model):
     storage = models.ForeignKey(
         'Storage',
@@ -17,12 +22,15 @@ class IncomingInvoices(models.Model):
     name = models.CharField(max_length=60)
     position = models.CharField(max_length=30)
 
+
 class IncomingInventorySet(models.Model):
     incoming_invoices = models.ForeignKey(
         'IncomingInvoices',
         on_delete=models.CASCADE,
     )
-    name = models.CharField(max_length=30)
+    name = models.ForeignKey(
+        "FoldingAccounting"
+    )
     quantity = models.IntegerField()
 
 
@@ -46,6 +54,13 @@ class OutcomingInventorySet(models.Model):
 
 
 class FoldingAccounting(models.Model):
-    product = models.CharField(max_length=30)
+    storage = models.ForeignKey(
+        'Storage',
+        on_delete=models.CASCADE
+    )
+    product = models.ForeignKey(
+        "Product",
+        on_delete=models.CASCADE
+    )
     incoming = models.IntegerField(default=0)
     outcoming = models.IntegerField(default=0)
