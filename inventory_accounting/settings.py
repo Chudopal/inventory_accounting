@@ -89,7 +89,7 @@ DATABASES = {
         'NAME': get_env_value("DB_NAME"),
         'USER' : get_env_value("DB_USER"),
         'PASSWORD' : get_env_value("DB_PASSWORD"),
-        'HOST' : '127.0.0.1',
+        'HOST' : get_env_value("HOST"),
         'PORT' : '5432',
     }
 }
