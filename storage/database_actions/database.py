@@ -35,5 +35,6 @@ class Database(metaclass=MetaSingleton):
                 password=os.environ["DB_PASSWORD"],
                 host=os.environ["HOST"]
             )
+            self.connection.autocommit = True
             self.cursor = self.connection.cursor()
         return self.cursor
