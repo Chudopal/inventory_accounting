@@ -3,7 +3,7 @@ import os
 
 
 class MetaSingleton(type):
-    """Metaclass for creating singletone"""
+    """Metaclass for creating singletones"""
 
     _instances = {}
 
@@ -16,8 +16,15 @@ class MetaSingleton(type):
 
 
 class Database(metaclass=MetaSingleton):
-    """This class allows to connect to the database"""
-    
+    """This class allows to connect to the database.
+    For connecting to the database you must 
+    define environment variables:
+        DB_NAME - database name 
+        DB_USER - user name
+        DB_PASSWORD - database's password
+        HOST - host of database
+    """
+
     connection = None
 
     def connect(self):
@@ -30,12 +37,3 @@ class Database(metaclass=MetaSingleton):
             )
             self.cursor = self.connection.cursor()
         return self.cursor
-
-
-DB = Database()
-CURSOR = DB.connect()
-
-
-CURSOR.execute('SELECT * FROM storage_product;')
-records = CURSOR.fetchall()
-print(records)
