@@ -18,3 +18,25 @@ def generate_insert_query(table_name: str, columns: list):
         )
 
     return query
+
+
+def generate_update_query(table_name: str):
+    
+    def query(column, value, id):
+        if type(value) == str:
+            value = "\'" + value + "\'"
+        CURSOR.execute(
+            sql.SQL(f"UPDATE {table_name} SET {column} = {value} WHERE id={id};")
+        )
+
+    return query
+
+
+def generate_delete_query(table_name: str):
+
+    def query(id):
+        CURSOR.execute(
+            sql.SQL(f"DELETE FROM {table_name} WHERE id={id};")
+        )
+
+    return query
