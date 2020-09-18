@@ -27,10 +27,12 @@ class IncomingInventorySet(models.Model):
         'IncomingInvoices',
         on_delete=models.CASCADE,
     )
-    name = models.ForeignKey(
-        "FoldingAccounting",
+    product = models.ForeignKey(
+        "Product",
         on_delete=models.CASCADE,
+        default=1
     )
+    quantity = models.IntegerField(default=0)
 
 
 class OutcomingInvoices(models.Model):
@@ -48,8 +50,12 @@ class OutcomingInventorySet(models.Model):
         'IncomingInvoices',
         on_delete=models.CASCADE,
     )
-    name = models.CharField(max_length=30)
-    quantity = models.IntegerField()
+    product = models.ForeignKey(
+        "Product",
+        on_delete=models.CASCADE,
+        default=1
+    )
+    quantity = models.IntegerField(default=0)
 
 
 class FoldingAccounting(models.Model):

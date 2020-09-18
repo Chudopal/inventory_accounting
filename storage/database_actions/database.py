@@ -19,7 +19,7 @@ class Database(metaclass=MetaSingleton):
     """This class allows to connect to the database.
     For connecting to the database you must 
     define environment variables:
-        DB_NAME - database name 
+        DB_NAME - database's name 
         DB_USER - user name
         DB_PASSWORD - database's password
         HOST - host of database
