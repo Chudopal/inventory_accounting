@@ -125,6 +125,6 @@ def select_storages():
 
 if __name__ == "__main__":
     add_product("Веревка")
-    update_produt("name","Меч", 20)
+    update_product("name","Меч", 20)
     delete_product(4)
     
