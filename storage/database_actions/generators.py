@@ -1,6 +1,7 @@
 from database import Database
 from psycopg2 import sql
 
+
 DB = Database()
 CURSOR = DB.connect()
 
@@ -42,7 +43,7 @@ def generate_delete_query(table_name: str):
     return query
 
 
-def generate_select_query(*tables):
+def generate_select_query(tables: dict, conditions: dict):
     
     select_from = ""
 
