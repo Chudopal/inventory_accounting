@@ -125,6 +125,11 @@ def select_storages():
 
 if __name__ == "__main__":
     add_product("Веревка")
+    add_storage("Витебский", "+375291233445")
+    select_storage = generators.generate_select_query(
+        "storage_storage"
+    )
+    print(select_storage(order_by="name"))
     update_product("name","Меч", 20)
     delete_product(4)
     

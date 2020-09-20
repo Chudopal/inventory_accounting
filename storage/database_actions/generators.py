@@ -139,13 +139,18 @@ def generate_select_query(*tables):
             conditions_str = "WHERE " + " AND ".join(conditions)
 
         if order_by:
-            order_by_str = f"ORDER BY {order_by[1:]} "
             if order_by[0] == "-":
+                order_by_str = f"ORDER BY {order_by[1:]} "
                 order_by_str += "DESK"
+            else:
+                order_by_str = f"ORDER BY {order_by}"
+        else:
+            order_by_str = ""
 
         CURSOR.execute(
             f"SELECT {', '.join(columns)}"\
             f" FROM {tables_join} {conditions_str} {order_by_str};"
         )
+        return CURSOR.fetchall()
 
     return query
