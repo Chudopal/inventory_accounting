@@ -1,4 +1,4 @@
-from database import Database
+from storage.database_actions.database import Database
 from psycopg2 import sql
 
 

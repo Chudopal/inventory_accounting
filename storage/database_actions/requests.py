@@ -1,5 +1,4 @@
-import generators
-from database import Database
+from storage.database_actions import generators
 from psycopg2 import sql
 
 #queries for product
@@ -115,7 +114,7 @@ select_incomming_and_outcomming = generators.generate_select_query(
     {
         "storage_outcominginventoryset":
         "storage_outcominginventoryset.product_id=storage_product.id"
-    }
+    },
     {
         "storage_outcominginvoices":
         "storage_outcominginvoices.id=storage_outcominginventoryset.outncoming_invoices_id"

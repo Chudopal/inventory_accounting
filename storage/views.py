@@ -1,25 +1,62 @@
 from django.shortcuts import render
+from django.views import View
 from .database_actions import requests
+from django.shortcuts import render
 
 
 def start(request):
-    pass
+    return render(request, "storage/start.html")
 
 
-def inventory(request):
-    pass
+class Inventory(View):
+    
+    template_name = "storage/inventory.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        pass
+
+    def put(self, request, *args, **kwargs):
+        pass
 
 
-def storage(request):
-    pass
+
+class Storage(View):
+    
+    def get(self, request, *args, **kwargs):
+        pass
+
+    def post(self, request, *args, **kwargs):
+        pass
+
+    def put(self, request, *args, **kwargs):
+        pass
 
 
-def incomming(request):
-    pass
+class Incomming(View):
+    
+    def get(self, request, *args, **kwargs):
+        pass
+
+    def post(self, request, *args, **kwargs):
+        pass
+
+    def put(self, request, *args, **kwargs):
+        pass
 
 
-def outcomming(request):
-    pass
+class Outcomming(View):
+    
+    def get(self, request, *args, **kwargs):
+        pass
+
+    def post(self, request, *args, **kwargs):
+        pass
+
+    def put(self, request, *args, **kwargs):
+        pass
 
 
 def list_of_inventory_from_storage(request):
