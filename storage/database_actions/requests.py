@@ -84,52 +84,40 @@ delete_folding_accounting = generators.generate_delete_query(
     "storage_foldingaccounting"
 )
 
-DB = Database()
-CURSOR = DB.connect()
-
-
-def select_inventory_in_storage(product, storage):
-    CURSOR.execute(
-        f"""SELECT sp.product, sf.incomming, sf.outcomming FROM storage_product sp
-        JOIN storage_foldingaccounting sf
-        ON sp.id = sf.product_id
-        JOIN storage_storage ss
-        ON ss.id = sp.storage_id
-        WHERE ss.name = {storage}
-        AND sp.name = {product};
-        """
-    )
-
-
-def select_incomming_and_outcomming(product):
-    CURSOR.execute(
-        f"""SELECT sp.name, so.date, si_set.quantity, so.date, so_set.quantity FROM storage_product sp
-        JOIN storage_incominginventoryset si_set
-        ON si_set.product_id = sp.id
-        JOIN storage_incominginvoices si
-        ON si_set.incoming_invoices_id = si.id
-        JOIN storage_outcominginventoryset so_set
-        ON so_set.product_id = sp.id
-        JOIN storage_outcominginvoices so
-        ON so_set.outncoming_invoices_id = so.id
-        WHERE sp.name = {product};
-        """
-    )
-
-
-def select_storages():
-    CURSOR.execute(
-        f"""SELECT number, name, phone_number FROM storage_storage ss"""
-    )
-
-
-if __name__ == "__main__":
-    add_product("Веревка")
-    add_storage("Витебский", "+375291233445")
-    select_storage = generators.generate_select_query(
+#view a list of all storage
+select_storage = generators.generate_select_query(
         "storage_storage"
-    )
-    print(select_storage(order_by="name"))
-    update_product("name","Меч", 20)
-    delete_product(4)
-    
+)
+
+#view a list 
+select_inventory_from_storage = generators.generate_select_query(
+    "storage_product",
+    {   
+        "storage_foldingaccounting":
+        "storage_foldingaccounting.product_id=storage_product.id"
+    },
+    {
+        "storage_storage":
+        "storage_storage.id=storage_foldingaccounting.storage_id"
+    },
+)
+
+select_incomming_and_outcomming = generators.generate_select_query(
+    "storage_product",
+    {
+        "storage_incominginventoryset":
+        "storage_incominginventoryset.product_id=storage_product.id"
+    },
+    {
+        "storage_incominginvoices":
+        "storage_incominginvoices.id=storage_incominginventoryset.incoming_invoices_id"
+    },
+    {
+        "storage_outcominginventoryset":
+        "storage_outcominginventoryset.product_id=storage_product.id"
+    }
+    {
+        "storage_outcominginvoices":
+        "storage_outcominginvoices.id=storage_outcominginventoryset.outncoming_invoices_id"
+    }
+)
