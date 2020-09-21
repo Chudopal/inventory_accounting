@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {{outcoming_set|json_script:"djangoData" }}
+
+    <div id="app">
+      <ol>
+        <li v-for="record in records">
+          [[ record[1] ]]
+        </li>
+      </ol>
+    </div>
+
+    <script>
+        let jsVariable = JSON.parse(document.getElementById('djangoData').textContent);
+        var app = new Vue({
+          delimiters: ['[[', ']]'],
+          el: '#app',
+          data: {
+              records: jsVariable,
+          }
+        });
+    </script>
+
+{% endblock content %}

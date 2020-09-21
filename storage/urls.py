@@ -19,14 +19,14 @@ urlpatterns = [
         name="storage"
     ),
     path(
-        "incommng_actions", 
-        views.Incomming.as_view(), 
-        name="incomming"
+        "incoming_actions", 
+        views.Incoming.as_view(), 
+        name="incoming"
     ),
     path(
-        "outcomming_actions",
-        views.Outcomming.as_view(),
-        name="outcomming"
+        "outcoming_actions",
+        views.Outcoming.as_view(),
+        name="outcoming"
     ),
     path(
         "in_storage",
@@ -34,13 +34,8 @@ urlpatterns = [
         name="in_storage"
     ),
     path(
-        "incomming_outcomming",
+        "incoming_outcoming",
         views.list_of_incomming_outcomming,
-        name="incomming_outcomming"
-    ),
-    path(
-        "list_of_storages",
-        views.list_of_storages,
-        name="storages"
+        name="incoming_outcoming"
     ),
 ]

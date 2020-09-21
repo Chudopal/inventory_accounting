@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    {% block set %}
+    {% endblock set %}
+
+   
+    <div id="app">
+        <table>
+            <tr>
+              {% block table_header %}
+                
+              {% endblock table_header %}
+            </tr>
+            
+            <tr border="1" v-for="record in records">
+              <td v-for="rec in record">
+                [[rec ]]
+              </dev>
+            </li>
+
+        </table>
+    </div>
+
+
+    <script>
+        let jsVariable = JSON.parse(document.getElementById('djangoData').textContent);
+        var app = new Vue({
+          delimiters: ['[[', ']]'],
+          el: '#app',
+          data: {
+              records: jsVariable,
+          }
+        });
+    </script>
+
+{% endblock content %}

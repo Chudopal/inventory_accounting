@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1> HELLO </h1>
+<a href="{% url 'inventory' %}"> Инвентарь </a> </br>
+<a href="{% url 'storage' %}"> Склады </a> </br>
+<a href="{% url 'incoming' %}"> Приход инвенторя </a> </br>
+<a href="{% url 'outcoming' %}"> Расход инвенторя</a> </br>
+<a href="{% url 'in_storage' %}"> Список инвентаря на складе</a> </br> 
+<a href="{% url 'incoming_outcoming' %}"> Список прихода и расхода инвентаря </a> </br>
 {% endblock content %}

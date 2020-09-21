@@ -11,6 +11,9 @@ update_product = generators.generate_update_query(
 delete_product = generators.generate_delete_query(
     "storage_product"
 )
+select_product = generators.generate_select_query(
+    "storage_product"
+)
 
 #queries for storage
 add_storage = generators.generate_insert_query(
@@ -22,17 +25,23 @@ update_storage = generators.generate_update_query(
 delete_storage = generators.generate_delete_query(
     "storage_storage"
 )
+select_storage = generators.generate_select_query(
+    "storage_storage"
+)
 
 #queries for incomming invoices
-add_incomming_invoices = generators.generate_insert_query(
-    "storage_incomminginvoices", 
+add_incoming_invoices = generators.generate_insert_query(
+    "storage_incominginvoices", 
     ["storage_id", "date", "name", "position"]
 )
-update_incomming_invoices = generators.generate_update_query(
-    "storage_incomminginvoices"
+update_incoming_invoices = generators.generate_update_query(
+    "storage_incominginvoices"
 )
-delete_incomming_invoices = generators.generate_delete_query(
-    "storage_incomminginvoices"
+delete_incoming_invoices = generators.generate_delete_query(
+    "storage_incominginvoices"
+)
+select_incoming_invoices = generators.generate_select_query(
+    "storage_incominginvoices"
 )
 
 #queries for incomming inventory set
@@ -45,6 +54,9 @@ update_incomming_inventory_set = generators.generate_update_query(
 )
 delete_incomming_inventory_set = generators.generate_delete_query(
     "storage_incominginventoryset"
+)
+select_outcoming_invoices = generators.generate_select_query(
+    "storage_outcominginvoices"
 )
 
 #queries for outcomming invoices
@@ -81,11 +93,6 @@ update_folding_accounting = generators.generate_update_query(
 )
 delete_folding_accounting = generators.generate_delete_query(
     "storage_foldingaccounting"
-)
-
-#view a list of all storage
-select_storage = generators.generate_select_query(
-        "storage_storage"
 )
 
 #view a list 
