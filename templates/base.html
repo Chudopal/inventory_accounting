@@ -11,9 +11,12 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- версия для разработки, отображает полезные предупреждения в консоли -->
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <link rel="stylesheet" href="{% static 'storage/style.css' %}">
     </head>
-    <body>
-        {% block content %}
-        {% endblock content %}
+    <body class="background">
+        <div class="main">
+            {% block content %}
+            {% endblock content %}
+        </div>
     </body>
 </html>

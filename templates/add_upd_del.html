@@ -5,17 +5,22 @@
     {% block set %}
     {% endblock set %}
 
-   
+    <div class="actions">
+      <div class="action" id="add"> Добавить </div>
+      <div class="action" id="del"> Удалить </div>
+      <div class="action" id="upd"> Обновить </div>
+    </div>  
+    
     <div id="app">
-        <table>
+        <table style="margin: auto;" border="1" width="100%" cellpadding="5">
             <tr>
               {% block table_header %}
                 
               {% endblock table_header %}
-            </tr>
+            </tr >
             
             <tr border="1" v-for="record in records">
-              <td v-for="rec in record">
+              <td v-for="rec in record" >
                 [[rec ]]
               </dev>
             </li>
