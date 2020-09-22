@@ -106,12 +106,22 @@ class Outcoming(View):
 
 
 def list_of_inventory_from_storage(request):
-    pass
+    context = {
+        "inventory_set":requests.select_inventory_from_storage(),
+    }
+    return render(
+        request, 
+        'storage/list_of_inventory_from_storage.html', 
+        context=context
+    )
 
 
 def list_of_incomming_outcomming(request):
-    pass
-
-
-def list_of_storages(request):
-    pass
+    context = {
+        "set": requests.select_incomming_and_outcomming()
+    }
+    return render(
+        request,
+        "storage/list_of_inventory_from_storage.html",
+        context=context
+    )
