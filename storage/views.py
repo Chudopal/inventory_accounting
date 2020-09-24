@@ -81,9 +81,23 @@ class Incoming(View):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        pass
+        incoming = json.loads(request.body)
+        requests.add_incoming_invoices(
+            incoming["storage_id"],
+            incoming["date"],
+            incoming["name"],
+            incoming["position"]
+        )
 
     def put(self, request, *args, **kwargs):
+        incoming = json.loads(request.body)
+        requests.update_incoming_invoices(
+            column=incoming["column"],
+            value=incoming["value"],
+            id=int(incoming["id"])
+        )
+
+    def delete(self, request, *args, **kwargs):
         pass
 
 

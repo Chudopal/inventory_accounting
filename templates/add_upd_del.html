@@ -5,13 +5,17 @@
     {% block set %}
     {% endblock set %}
 
-    <div v-if="seen" id="form">
-        <div v-on:click="seen=false">отменить</div>
+
+    <div v-if="seen" class="forms" id="form">
+        <div class="actions">
+          <div class="action" v-on:click="seen=false">отменить</div>
+          <div class="action">добавить</div>
+        </div>
     </div>
 
     <div id="button" class="actions">
       <div v-bind:title="back" class="action" id="upd"> Назад </div>
-      <div v-bind:title="add" class="action" id="add"> Добавить </div>
+      <div v-on:click="seen=true" v-bind:title="add" class="action" id="add"> Добавить </div>
       <div v-bind:title="del" class="action" id="del"> Удалить </div>
       <div v-bind:title="upd" class="action" id="upd"> Обновить </div>
     </div>  
@@ -33,8 +37,9 @@
         </table>
     </div>
 
-
     <script>
+      var seen = true
+
         let jsVariable = JSON.parse(document.getElementById('djangoData').textContent);
         var app = new Vue({
           delimiters: ['[[', ']]'],
@@ -59,6 +64,7 @@
             seen: true
           }
         })
+
     </script>
 
 {% endblock content %}
