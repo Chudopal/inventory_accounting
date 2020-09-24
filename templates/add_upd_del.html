@@ -6,18 +6,37 @@
     {% endblock set %}
 
 
-    <div v-if="seen" class="forms" id="form">
+    <div v-if="add" class="forms" id="add">
+      {% block add_field %}
+      {% endblock add_field %}
         <div class="actions">
-          <div class="action" v-on:click="seen=false">отменить</div>
+          <div class="action" v-on:click="add=false">Отменить</div>
+          <div class="action">Добавить</div>
+        </div>
+    </div>
+
+    <div v-if="upd" class="forms" id="upd">
+          <input v-model="column" placeholder="Столбец">
+          <input v-model="number" placeholder="Номер">
+          <input v-model="new_val" placeholder="Новое значение">
+        <div class="actions">
+          <div class="action" v-on:click="upd=false">Отменить</div>
           <div class="action">добавить</div>
         </div>
     </div>
 
-    <div id="button" class="actions">
-      <div v-bind:title="back" class="action" id="upd"> Назад </div>
-      <div v-on:click="seen=true" v-bind:title="add" class="action" id="add"> Добавить </div>
-      <div v-bind:title="del" class="action" id="del"> Удалить </div>
-      <div v-bind:title="upd" class="action" id="upd"> Обновить </div>
+   <div v-if="del" class="forms" id="del">
+        <div class="actions">
+          <div class="action" v-on:click="del=false">Отменить</div>
+          <div class="action">добавить</div>
+        </div>
+    </div>
+
+    <div id="buttons" class="actions">
+      <div class="action"> Назад </div>
+      <div v-on:click="show_add_form" class="action"> Добавить </div>
+      <div v-on:click="show_upd_form" class="action"> Обновить </div>
+      <div v-on:click="show_del_form" class="action"> Удалить </div>
     </div>  
     
     <div id="app">
@@ -38,7 +57,6 @@
     </div>
 
     <script>
-      var seen = true
 
         let jsVariable = JSON.parse(document.getElementById('djangoData').textContent);
         var app = new Vue({
@@ -49,21 +67,53 @@
           }
         });
 
-        var button = new Vue({
-          el: "#button",
-          data:{
-            "add": "Добавить новую строку",
-            "del": "Удалисть строку",
-            "upd": "Изменить строку"
+        var add = new Vue({
+          el: '#add',
+          data: {
+            add: false
           }
         })
 
-        var form = new Vue({
-          el: '#form',
+        var upd = new Vue({
+          el: '#upd',
           data: {
-            seen: true
+            upd: false
           }
         })
+
+        var del = new Vue({
+          el: '#del',
+          data: {
+            del: false
+          }
+        })
+
+
+        var buttons = new Vue({
+          el: "#buttons",
+          data:{
+            "add": "Добавить новую строку",
+            "del": "Удалисть строку",
+            "upd": "Изменить строку",
+          },
+          methods:{
+            show_add_form: show_add_form,
+            show_upd_form: show_upd_form,
+            show_del_form: show_del_form 
+          }
+        })
+
+        function show_add_form(){
+          add.add = true
+        }
+
+        function show_upd_form(){
+          upd.upd = true
+        }
+
+        function show_del_form(){
+          del.del = true
+        }
 
     </script>
 
