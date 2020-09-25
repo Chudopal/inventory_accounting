@@ -22,19 +22,18 @@ class Inventory(View):
         return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
-        inventory = json.loads(request.body)
+        inventory = json.loads(request.body)["data"]
         requests.add_product(inventory["name"])
+        return HttpResponse("ok")
 
     def put(self, request, *args, **kwargs):
         inventory = json.loads(request.body)["data"]
-        print("HEREEEEEEEEE")
-        print(inventory)
         requests.update_product(
             column=inventory["column"],
             value=inventory["new_val"],
             id=int(inventory["number"])
         )
-        
+        return HttpResponse("ok")
 
     def delete(self, request, *args, **kwargs):
         inventory = json.loads(request.body)

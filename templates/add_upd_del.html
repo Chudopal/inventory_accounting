@@ -9,9 +9,10 @@
     <div v-if="add" class="forms" id="add">
       {% block add_field %}
       {% endblock add_field %}
-        <div class="actions">
+         <div class="actions">
           <div class="action" v-on:click="add=false">Отменить</div>
-          <div class="action">Добавить</div>
+          {% csrf_token %}
+          <div class="action" v-on:click="send_add_data">Добавить</div>
         </div>
     </div>
 
@@ -24,14 +25,15 @@
         <div class="actions">
           <div class="action" v-on:click="upd=false">Отменить</div>
           {% csrf_token %}
-          <div class="action" v-on:click="send_data">Добавить</div>
+          <div class="action" v-on:click="send_upd_data">Обновить</div>
         </div>
     </div>
 
    <div v-if="del" class="forms" id="del">
         <div class="actions">
           <div class="action" v-on:click="del=false">Отменить</div>
-          <div class="action" v-on:click="send_data">добавить</div>
+          {% csrf_token %}
+          <div class="action" v-on:click="send_add_data">Добавить</div>
         </div>
     </div>
 
@@ -53,7 +55,7 @@
             <tr border="1" v-for="record in records">
               <td v-for="rec in record" >
                 [[rec ]]
-              </dev>
+              </td>
             </li>
 
         </table>
@@ -75,7 +77,9 @@
         var add = new Vue({
           el: '#add',
           data: {
-            add: false
+            add: false,
+            name:"",
+            send_add_data: send_add_data
           }
         })
 
@@ -86,7 +90,7 @@
             column: "",
             number: "",
             new_val: "",
-            send_data: send_data
+            send_upd_data: send_upd_data
           }
         })
 
@@ -100,7 +104,7 @@
 
         var buttons = new Vue({
           el: "#buttons",
-          data:{
+          data: {
             "add": "Добавить новую строку",
             "del": "Удалисть строку",
             "upd": "Изменить строку"
@@ -108,7 +112,7 @@
           methods:{
             show_add_form: show_add_form,
             show_upd_form: show_upd_form,
-            show_del_form: show_del_form,
+            show_del_form: show_del_form
           }
         })
 
@@ -124,18 +128,25 @@
           del.del = true
         }
 
-        function send_data(){
-          axios.put('#', {
+      function send_upd_data(){
+        axios.put('#', {
+        data: {
+          column: upd.column,
+          number: upd.number,
+          new_val: upd.new_val
+        }
+        })
+        upd.upd = false
+      }
+
+      function send_add_data(){
+        axios.post('#', {
           data: {
-            column: upd.column,
-            number: upd.number,
-            new_val: upd.new_val
+            name: add.name
           }
           })
-          upd.upd = false
-        }
-
-        
+          add.add = false
+      }
 
     </script>
 

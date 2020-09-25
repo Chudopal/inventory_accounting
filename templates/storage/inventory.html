@@ -7,6 +7,14 @@
   </tr>
 {% endblock table_header %}
 
+{% block add_field %}
+
+<div class="inputs">
+  <input class="input" v-model="name" placeholder="Наименование">
+</div>
+
+{% endblock add_field %}
+
 {% block set %}
     {{inventory_set|json_script:"djangoData"}}
 {% endblock set %}

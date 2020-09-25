@@ -1,12 +1,12 @@
 .background{
-    background-color: rgb(250, 253, 255);
+    background-color: rgb(241, 241, 241);
 }
 
 .main{
     position: relative;
     margin: auto;
 
-    background-color: rgb(239, 252, 251);
+    background-color: rgb(255, 255, 255);
     width: 80%;
     
     line-height: 3em;
