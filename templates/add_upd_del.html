@@ -16,19 +16,22 @@
     </div>
 
     <div v-if="upd" class="forms" id="upd">
-          <input v-model="column" placeholder="Столбец">
-          <input v-model="number" placeholder="Номер">
-          <input v-model="new_val" placeholder="Новое значение">
+        <div class="inputs">
+          <input class="input" v-model="column" placeholder="Столбец">
+          <input class="input" v-model="number" placeholder="id">
+          <input class="input" v-model="new_val" placeholder="Новое значение">
+        </div>
         <div class="actions">
           <div class="action" v-on:click="upd=false">Отменить</div>
-          <div class="action">добавить</div>
+          {% csrf_token %}
+          <div class="action" v-on:click="send_data">Добавить</div>
         </div>
     </div>
 
    <div v-if="del" class="forms" id="del">
         <div class="actions">
           <div class="action" v-on:click="del=false">Отменить</div>
-          <div class="action">добавить</div>
+          <div class="action" v-on:click="send_data">добавить</div>
         </div>
     </div>
 
@@ -41,7 +44,7 @@
     
     <div id="app">
         <table style="margin: auto;" border="1" width="100%" cellpadding="5">
-            <tr>
+            <tr >
               {% block table_header %}
                 
               {% endblock table_header %}
@@ -57,6 +60,8 @@
     </div>
 
     <script>
+        axios.defaults.xsrfCookieName = 'csrftoken';
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 
         let jsVariable = JSON.parse(document.getElementById('djangoData').textContent);
         var app = new Vue({
@@ -77,7 +82,11 @@
         var upd = new Vue({
           el: '#upd',
           data: {
-            upd: false
+            upd: false,
+            column: "",
+            number: "",
+            new_val: "",
+            send_data: send_data
           }
         })
 
@@ -94,12 +103,12 @@
           data:{
             "add": "Добавить новую строку",
             "del": "Удалисть строку",
-            "upd": "Изменить строку",
+            "upd": "Изменить строку"
           },
           methods:{
             show_add_form: show_add_form,
             show_upd_form: show_upd_form,
-            show_del_form: show_del_form 
+            show_del_form: show_del_form,
           }
         })
 
@@ -114,6 +123,19 @@
         function show_del_form(){
           del.del = true
         }
+
+        function send_data(){
+          axios.put('#', {
+          data: {
+            column: upd.column,
+            number: upd.number,
+            new_val: upd.new_val
+          }
+          })
+          upd.upd = false
+        }
+
+        
 
     </script>
 

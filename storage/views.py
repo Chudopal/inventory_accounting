@@ -3,6 +3,7 @@ from django.views import View
 from .database_actions import requests
 from django.shortcuts import render
 import json
+from django.http import HttpResponse
 
 
 def start(request):
@@ -25,12 +26,15 @@ class Inventory(View):
         requests.add_product(inventory["name"])
 
     def put(self, request, *args, **kwargs):
-        inventory = json.loads(request.body)
+        inventory = json.loads(request.body)["data"]
+        print("HEREEEEEEEEE")
+        print(inventory)
         requests.update_product(
-            column=int(inventory["column"]),
-            value=inventory["value"],
-            id=int(inventory["id"])
+            column=inventory["column"],
+            value=inventory["new_val"],
+            id=int(inventory["number"])
         )
+        
 
     def delete(self, request, *args, **kwargs):
         inventory = json.loads(request.body)
@@ -61,6 +65,7 @@ class Storage(View):
             value=storage["value"],
             id=int(storage["id"])
         )
+        return HttpResponse("ok")
 
     def delete(self, request, *args, **kwargs):
         storage = json.loads(request.body)
