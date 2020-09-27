@@ -2,11 +2,20 @@
 
 {% block table_header %}
   <tr>
-    <th>Номер</th>
-    <th>Название</th>
-    <th>Номер телефона</th>
+    <th>id</th>
+    <th>name</th>
+    <th>phone_number</th>
   </tr>
 {% endblock table_header %}
+
+{% block add_field %}
+
+<div class="inputs">
+  <input class="input" v-model="name" placeholder="Имя">
+  <input class="input" v-model="phone_number" placeholder="Номер телефона">
+</div>
+
+{% endblock add_field %}
 
 {% block set %}
     {{storage_set|json_script:"djangoData"}}

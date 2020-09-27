@@ -56,21 +56,25 @@ class Storage(View):
 
     def post(self, request, *args, **kwargs):
         storage = json.loads(request.body)
-        requests.add_storage(storage["name"], storage["phone_number"])
+        requests.add_storage(
+            storage["name"], 
+            storage["phone_number"]
+        )
+        return HttpResponse("ok"), 200
 
     def put(self, request, *args, **kwargs):
         storage = json.loads(request.body)
         requests.update_product(
-            column=int(storage["column"]),
-            value=storage["value"],
-            id=int(storage["id"])
+            column=storage["column"],
+            value=storage["new_val"],
+            id=int(storage["number"])
         )
         return HttpResponse("ok")
 
     def delete(self, request, *args, **kwargs):
         storage = json.loads(request.body)
         requests.delete_storage(
-            id=storage["id"]
+            id=storage["Number"]
         )
 
 

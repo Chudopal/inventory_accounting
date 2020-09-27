@@ -80,6 +80,7 @@
           data: {
             add: false,
             name:"",
+            phone_number: "",
             send_add_data: send_add_data
           }
         })
@@ -133,10 +134,12 @@
 
       function send_add_data(){
         axios.post('#', {
-            name: add.name
+            name: add.name,
+            phone_number: add.phone_number
           })
           add.add = false
           add.name = ""
+          add.phone_number = ""
       }
 
       function send_upd_data(){
