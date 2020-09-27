@@ -39,7 +39,7 @@
     </div>
 
     <div id="buttons" class="actions">
-      <div class="action"> Назад </div>
+      <div v-on:click="redirect" class="action"> Назад </div>
       <div v-on:click="show_add_form" class="action"> Добавить </div>
       <div v-on:click="show_upd_form" class="action"> Обновить </div>
       <div v-on:click="show_del_form" class="action"> Удалить </div>
@@ -114,7 +114,8 @@
           methods:{
             show_add_form: show_add_form,
             show_upd_form: show_upd_form,
-            show_del_form: show_del_form
+            show_del_form: show_del_form,
+            redirect: redirect
           }
         })
 
@@ -152,9 +153,13 @@
 
       function send_del_data(){
         a = axios.delete('#', { headers: { number: del.number}})
-        console.log(a.data)
         del.del = false
         del.number = ""
+      }
+
+      function redirect(){
+        console.log("HEREEEEE")
+        window.location = "/queries"
       }
 
     </script>

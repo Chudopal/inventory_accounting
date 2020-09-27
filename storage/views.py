@@ -36,10 +36,7 @@ class Inventory(View):
         return HttpResponse("ok")
 
     def delete(self, request, *args, **kwargs):
-        print(request.headers)
-        print("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE delete")
         inventory = request.headers
-        print(inventory)
         requests.delete_product(
             id=int(inventory["Number"])
         )
