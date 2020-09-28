@@ -73,29 +73,35 @@ delete_outcomming_invoices = generators.generate_delete_query(
 select_outcoming_invoices = generators.generate_select_query(
     "storage_outcominginvoices"
 )
+select_outcoming_inventory_set = generators.generate_select_query(
+    "storage_outcominginventoryset"
+)
 
 
 #queries for outcomming inventory set
-add_outcomming_inventory_set = generators.generate_insert_query(
+add_outcoming_inventory_set = generators.generate_insert_query(
     "storage_outcominginventoryset",
     ["outcoming_invoices_id", "product_id", "quantity"]
 )
-update_outcomming_inventory_set = generators.generate_update_query(
+update_outcoming_inventory_set = generators.generate_update_query(
     "storage_outcominginventoryset"
 )
-delete_outcomming_inventory_set = generators.generate_delete_query(
+delete_outcoming_inventory_set = generators.generate_delete_query(
     "storage_outcominginventoryset"
 )
 
 #queries for folding accounting
 add_folding_accounting = generators.generate_insert_query(
     "storage_foldingaccounting",
-    ["storage_id", "product_id", "incomming", "outcomming"]
+    ["storage_id", "product_id", "incoming", "outcoming"]
 )
 update_folding_accounting = generators.generate_update_query(
     "storage_foldingaccounting"
 )
 delete_folding_accounting = generators.generate_delete_query(
+    "storage_foldingaccounting"
+)
+select_folding_accounting = generators.generate_select_query(
     "storage_foldingaccounting"
 )
 

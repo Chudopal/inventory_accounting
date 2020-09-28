@@ -138,18 +138,53 @@ class IncomingSet(View):
             int(incoming_set["product_id"]),
             int(incoming_set["quantity"])
         )
+        folding = list(requests.select_folding_accounting(
+            conditions=[
+                f"product_id={int(incoming_set['product_id'])}",
+            ]
+        )[0])
+        if not folding:
+            storage_id = int((requests.select_incoming_invoices(
+                    conditions=[
+                        f"id={pk}"
+                    ]
+                )
+            )[0][4])
+            requests.add_folding_accounting(
+                storage_id,
+                int(incoming_set["product_id"]),
+                int(incoming_set["quantity"]),
+                0
+            )
+        else: 
+            requests.update_folding_accounting(
+                "incoming",
+                folding[1] + int(incoming_set["quantity"]),
+                folding[0]
+            )
+
         return HttpResponse("ok"), 200
     
     def put(self, request, pk):
+        incoming_set = json.loads(request.body)
+        requests.update_incoming_inventory_set(
+            column=incoming_set["column"],
+            value=incoming_set["value"],
+            id=int(incoming_set["id"])
+        )
         return HttpResponse("ok"), 200
 
     def delete(self, request, pk):
+        incoming_set = json.loads(request.body)
+        requests.delete_incoming_inventory_set(
+            id=incoming_set["Number"]
+        )
         return HttpResponse("ok"), 200
 
 
 class Outcoming(View):
     
-    template_name = "storage/incoming.html"
+    template_name = "storage/outcoming.html"
 
     def get(self, request, *args, **kwargs):
         outcoming = requests.select_outcoming_invoices()
