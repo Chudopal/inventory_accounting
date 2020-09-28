@@ -220,6 +220,70 @@ class Outcoming(View):
 
 
 
+class OutcomingSet(View):
+    
+    def get(self, request, pk):
+        outcoming_set = requests.select_outcoming_inventory_set(
+            conditions=[
+                f"incoming_outvoices_id={pk}"
+            ]
+        )
+        context = {
+            "outcoming_set": outcoming_set
+        }
+        return render(request, "storage/outcoming_set.html", context)
+
+    def post(self, request, pk):
+        outcoming_set = json.loads(request.body)
+        requests.add_outcoming_inventory_set(
+            int(pk),
+            int(outcoming_set["product_id"]),
+            int(outcoming_set["quantity"])
+        )
+        folding = list(requests.select_folding_accounting(
+            conditions=[
+                f"product_id={int(outcoming_set['product_id'])}",
+            ]
+        )[0])
+        if not folding:
+            storage_id = int((requests.select_outcoming_invoices(
+                    conditions=[
+                        f"id={pk}"
+                    ]
+                )
+            )[0][4])
+            requests.add_folding_accounting(
+                storage_id,
+                int(outcoming_set["product_id"]),
+                int(outcoming_set["quantity"]),
+                0
+            )
+        else: 
+            requests.update_folding_accounting(
+                "incoming",
+                folding[1] + int(outcoming_set["quantity"]),
+                folding[0]
+            )
+
+        return HttpResponse("ok"), 200
+    
+    def put(self, request, pk):
+        outcoming_set = json.loads(request.body)
+        requests.update_outcoming_inventory_set(
+            column=outcoming_set["column"],
+            value=outcoming_set["value"],
+            id=int(outcoming_set["id"])
+        )
+        return HttpResponse("ok"), 200
+
+    def delete(self, request, pk):
+        outcoming_set = json.loads(request.body)
+        requests.delete_outcoming_inventory_set(
+            id=outcoming_set["Number"]
+        )
+        return HttpResponse("ok"), 200
+
+
 def list_of_inventory_from_storage(request):
     context = {
         "inventory_set":requests.select_inventory_from_storage(),
