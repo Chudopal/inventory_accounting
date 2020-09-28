@@ -40,9 +40,11 @@
 
     <div id="buttons" class="actions">
       <div v-on:click="redirect" class="action"> Меню </div>
+  {% block buttons %}
       <div v-on:click="show_add_form" class="action"> Добавить </div>
       <div v-on:click="show_upd_form" class="action"> Обновить </div>
       <div v-on:click="show_del_form" class="action"> Удалить </div>
+  {% endblock buttons %}
     </div>  
     
     <div id="app">

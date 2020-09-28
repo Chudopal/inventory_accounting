@@ -137,12 +137,13 @@ class IncomingSet(View):
             int(incoming_set["product_id"]),
             int(incoming_set["quantity"])
         )
-        folding = list(requests.select_folding_accounting(
+        folding = requests.select_folding_accounting(
             conditions=[
                 f"product_id={int(incoming_set['product_id'])}",
             ]
-        )[0])
+        )
         if not folding:
+
             storage_id = int((requests.select_incoming_invoices(
                     conditions=[
                         f"id={pk}"
@@ -156,6 +157,7 @@ class IncomingSet(View):
                 0
             )
         else: 
+            folding = list(folding[0])
             requests.update_folding_accounting(
                 "incoming",
                 folding[1] + int(incoming_set["quantity"]),
@@ -225,7 +227,7 @@ class OutcomingSet(View):
     def get(self, request, pk):
         outcoming_set = requests.select_outcoming_inventory_set(
             conditions=[
-                f"incoming_outvoices_id={pk}"
+                f"incoming_invoices_id={pk}"
             ]
         )
         context = {
@@ -245,23 +247,10 @@ class OutcomingSet(View):
                 f"product_id={int(outcoming_set['product_id'])}",
             ]
         )[0])
-        if not folding:
-            storage_id = int((requests.select_outcoming_invoices(
-                    conditions=[
-                        f"id={pk}"
-                    ]
-                )
-            )[0][4])
-            requests.add_folding_accounting(
-                storage_id,
-                int(outcoming_set["product_id"]),
-                int(outcoming_set["quantity"]),
-                0
-            )
-        else: 
+        if folding:
             requests.update_folding_accounting(
                 "incoming",
-                folding[1] + int(outcoming_set["quantity"]),
+                folding[1] - int(outcoming_set["quantity"]),
                 folding[0]
             )
 
@@ -285,6 +274,7 @@ class OutcomingSet(View):
 
 
 def list_of_inventory_from_storage(request):
+    print(requests.select_inventory_from_storage())
     context = {
         "inventory_set":requests.select_inventory_from_storage(),
     }

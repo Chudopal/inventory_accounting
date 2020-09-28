@@ -81,7 +81,7 @@ select_outcoming_inventory_set = generators.generate_select_query(
 #queries for outcomming inventory set
 add_outcoming_inventory_set = generators.generate_insert_query(
     "storage_outcominginventoryset",
-    ["outcoming_invoices_id", "product_id", "quantity"]
+    ["incoming_invoices_id", "product_id", "quantity"]
 )
 update_outcoming_inventory_set = generators.generate_update_query(
     "storage_outcominginventoryset"

@@ -35,6 +35,11 @@ urlpatterns = [
         name="outcoming"
     ),
     path(
+        "outcoming_actions/<int:pk>", 
+        views.OutcomingSet.as_view(), 
+        name="outcoming_set"
+    ),
+    path(
         "in_storage",
         views.list_of_inventory_from_storage,
         name="in_storage"
