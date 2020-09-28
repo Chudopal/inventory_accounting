@@ -134,6 +134,6 @@ select_incomming_and_outcomming = generators.generate_select_query(
     },
     {
         "storage_outcominginvoices":
-        "storage_outcominginvoices.id=storage_outcominginventoryset.outncoming_invoices_id"
+        "storage_outcominginvoices.id=storage_outcominginventoryset.incoming_invoices_id"
     }
 )

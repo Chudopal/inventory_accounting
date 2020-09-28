@@ -1,0 +1,36 @@
+{% extends 'add_upd_del.html' %}
+
+{% block buttons %}
+    
+{% endblock buttons %}
+
+{% block table_header %}
+  <tr>
+    <th> Номер склада </th>
+    <th> Наименование </th>
+    <th> Накладная </th>
+    <th> Пришло </th>
+    <th> Ушло </th>
+    <th> Номер склада </th>
+    <th> Карточка инвентаря </th>
+    <th> Карточка инвентаря </th>
+    <th> Склад </th>
+    <th> Номер телефона </th>
+  </tr>
+{% endblock table_header %}
+
+{% block records %}
+  {% for outcom in inventory_set %}
+    <tr border="1">
+      {% for outc in outcom %}
+        <td>
+           {{outc}}
+        </td>
+      {% endfor %}
+    </li>
+  {% endfor %}
+{% endblock records %}
+
+{% block set %}
+    {{inventory_set|json_script:"djangoData"}}
+{% endblock set %}

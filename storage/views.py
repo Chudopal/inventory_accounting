@@ -274,7 +274,6 @@ class OutcomingSet(View):
 
 
 def list_of_inventory_from_storage(request):
-    print(requests.select_inventory_from_storage())
     context = {
         "inventory_set":requests.select_inventory_from_storage(),
     }
@@ -287,7 +286,7 @@ def list_of_inventory_from_storage(request):
 
 def list_of_incomming_outcomming(request):
     context = {
-        "set": requests.select_incomming_and_outcomming()
+        "inventory_set": requests.select_incomming_and_outcomming()
     }
     return render(
         request,
