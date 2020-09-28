@@ -53,11 +53,13 @@
               {% endblock table_header %}
             </tr >
             
-            <tr border="1" v-for="record in records">
-              <td v-for="rec in record" >
-                [[rec ]]
-              </td>
-            </li>
+            {% block records %}
+              <tr border="1" v-for="record in records">
+                <td v-for="rec in record" >
+                  [[rec ]]
+                </td>
+              </li>
+            {% endblock records %}
 
         </table>
     </div>
@@ -161,7 +163,6 @@
       }
 
       function redirect(){
-        console.log("HEREEEEE")
         window.location = "/queries"
       }
 

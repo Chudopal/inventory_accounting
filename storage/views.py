@@ -85,8 +85,9 @@ class Incoming(View):
     def get(self, request, *args, **kwargs):
         incoming = requests.select_incoming_invoices()
         context = {
-            "incoming_set": incoming
+            "incoming": incoming
         }
+        print(incoming)
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -148,3 +149,18 @@ def list_of_incomming_outcomming(request):
         "storage/list_of_inventory_from_storage.html",
         context=context
     )
+
+
+class IncomingSet(View):
+    
+    def get(self, request, pk):
+        pass
+
+    def post(self, request, pk):
+        pass
+    
+    def put(self, request, pk):
+        pass
+
+    def delete(self, request, pk):
+        pass

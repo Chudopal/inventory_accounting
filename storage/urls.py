@@ -25,6 +25,11 @@ urlpatterns = [
         name="incoming"
     ),
     path(
+        "incoming_actions/<int:pk>", 
+        views.IncomingSet.as_view(), 
+        name="incoming_set"
+    ),
+    path(
         "outcoming_actions",
         views.Outcoming.as_view(),
         name="outcoming"

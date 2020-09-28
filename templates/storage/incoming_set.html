@@ -3,23 +3,18 @@
 {% block table_header %}
   <tr>
     <th>id</th>
-    <th>date</th>
-    <th>name</th>
-    <th>position</th>
-    <th>storage_id</th>
+    <th>quantity</th>
+    <th>incoming_invoices_id</th>
+    <th>product_id</th>
   </tr>
 {% endblock table_header %}
 
 {% block records %}
-  {% for incom in incoming %}
-    <tr border="1">
-      {% for inc in incom %}
-        <td>
-           <a href="{% url 'incoming_set' incom.0 %}"> {{inc}} </a>
-        </td>
-      {% endfor %}
-    </li>
-  {% endfor %}
+  <tr border="1" v-for="record in records">
+    <td v-for="rec in record" >
+        [[rec ]]
+    </td>
+  </li>
 {% endblock records %}
 
 {% block add_field %}
