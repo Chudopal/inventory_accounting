@@ -39,7 +39,7 @@
     </div>
 
     <div id="buttons" class="actions">
-      <div v-on:click="redirect" class="action"> Назад </div>
+      <div v-on:click="redirect" class="action"> Меню </div>
       <div v-on:click="show_add_form" class="action"> Добавить </div>
       <div v-on:click="show_upd_form" class="action"> Обновить </div>
       <div v-on:click="show_del_form" class="action"> Удалить </div>
@@ -83,6 +83,10 @@
             add: false,
             name:"",
             phone_number: "",
+            position: "",
+            storage_number: "",
+            quantity: "",
+            product_id: "",
             send_add_data: send_add_data
           }
         })
@@ -137,18 +141,26 @@
       function send_add_data(){
         axios.post('#', {
             name: add.name,
-            phone_number: add.phone_number
+            phone_number: add.phone_number,
+            storage_number: add.storage_number,
+            position: add.position,
+            product_id: add.product_id,
+            quantity: add.quantity,
           })
           add.add = false
           add.name = ""
           add.phone_number = ""
+          add.storage_number = ""
+          add.position = ""
+          add.product_id = ""
+          add.quantity = ""
       }
 
       function send_upd_data(){
         axios.put('#', {
           column: upd.column,
           number: upd.number,
-          new_val: upd.new_val
+          new_val: upd.new_val,
         })
         upd.upd = false
         upd.column = ""

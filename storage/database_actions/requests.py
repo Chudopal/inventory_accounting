@@ -45,18 +45,18 @@ select_incoming_invoices = generators.generate_select_query(
 )
 
 #queries for incomming inventory set
-add_incomming_inventory_set = generators.generate_insert_query(
+add_incoming_inventory_set = generators.generate_insert_query(
     "storage_incominginventoryset",
     ["incoming_invoices_id", "product_id", "quantity"]
 )
-update_incomming_inventory_set = generators.generate_update_query(
+update_incoming_inventory_set = generators.generate_update_query(
     "storage_incominginventoryset"
 )
-delete_incomming_inventory_set = generators.generate_delete_query(
+delete_incoming_inventory_set = generators.generate_delete_query(
     "storage_incominginventoryset"
 )
-select_outcoming_invoices = generators.generate_select_query(
-    "storage_outcominginvoices"
+select_incoming_inventory_set = generators.generate_select_query(
+    "storage_incominginventoryset"
 )
 
 #queries for outcomming invoices
@@ -70,6 +70,10 @@ update_outcomming_invoices = generators.generate_update_query(
 delete_outcomming_invoices = generators.generate_delete_query(
     "storage_outcomminginvoices"
 )
+select_outcoming_invoices = generators.generate_select_query(
+    "storage_outcominginvoices"
+)
+
 
 #queries for outcomming inventory set
 add_outcomming_inventory_set = generators.generate_insert_query(

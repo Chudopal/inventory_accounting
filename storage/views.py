@@ -4,6 +4,7 @@ from .database_actions import requests
 from django.shortcuts import render
 import json
 from django.http import HttpResponse
+from datetime import datetime
 
 
 def start(request):
@@ -93,11 +94,12 @@ class Incoming(View):
     def post(self, request, *args, **kwargs):
         incoming = json.loads(request.body)
         requests.add_incoming_invoices(
-            incoming["storage_id"],
-            incoming["date"],
+            incoming["storage_number"],
+            datetime.strftime(datetime.now(), "%Y.%m.%d"),
             incoming["name"],
             incoming["position"]
         )
+        return HttpResponse("ok"), 200
 
     def put(self, request, *args, **kwargs):
         incoming = json.loads(request.body)
@@ -106,9 +108,43 @@ class Incoming(View):
             value=incoming["value"],
             id=int(incoming["id"])
         )
+        return HttpResponse("ok"), 200
 
     def delete(self, request, *args, **kwargs):
-        pass
+        incom = json.loads(request.body)
+        requests.delete_incoming_invoices(
+            id=incom["Number"]
+        )
+        return HttpResponse("ok"), 200
+
+
+class IncomingSet(View):
+    
+    def get(self, request, pk):
+        incoming_set = requests.select_incoming_inventory_set(
+            conditions=[
+                f"incoming_invoices_id={pk}"
+            ]
+        )
+        context = {
+            "incoming_set": incoming_set
+        }
+        return render(request, "storage/incoming_set.html", context)
+
+    def post(self, request, pk):
+        incoming_set = json.loads(request.body)
+        requests.add_incoming_inventory_set(
+            int(pk),
+            int(incoming_set["product_id"]),
+            int(incoming_set["quantity"])
+        )
+        return HttpResponse("ok"), 200
+    
+    def put(self, request, pk):
+        return HttpResponse("ok"), 200
+
+    def delete(self, request, pk):
+        return HttpResponse("ok"), 200
 
 
 class Outcoming(View):
@@ -150,17 +186,3 @@ def list_of_incomming_outcomming(request):
         context=context
     )
 
-
-class IncomingSet(View):
-    
-    def get(self, request, pk):
-        pass
-
-    def post(self, request, pk):
-        pass
-    
-    def put(self, request, pk):
-        pass
-
-    def delete(self, request, pk):
-        pass

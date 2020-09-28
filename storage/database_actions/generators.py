@@ -14,8 +14,8 @@ def generate_insert_query(table_name: str, columns: list):
     columns - required columns in table.
     """
     def query(*values):
-        """This function creates delete-queries to the database.
-        values - is values you want to INSERT into a table.
+        """This function creates insert-queries to the database.
+        values - is values you want to INSERT into the table.
         """
         values = list(values)        
         for item, _ in enumerate(values):

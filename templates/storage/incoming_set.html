@@ -20,12 +20,12 @@
 {% block add_field %}
 
   <div class="inputs">
-    <input class="input" v-model="name" placeholder="Имя">
-    <input class="input" v-model="phone_number" placeholder="Номер телефона">
+    <input class="input" v-model="product_id" placeholder="Номер инвентаря">
+    <input class="input" v-model="quantity" placeholder="Количество">
   </div>
 
 {% endblock add_field %}
 
 {% block set %}
-    {{incoming|json_script:"djangoData"}}
+    {{incoming_set|json_script:"djangoData"}}
 {% endblock set %}
