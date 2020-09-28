@@ -60,15 +60,15 @@ select_incoming_inventory_set = generators.generate_select_query(
 )
 
 #queries for outcomming invoices
-add_outcomming_invoices = generators.generate_insert_query(
-    "storage_outcomminginvoices", 
+add_outcoming_invoices = generators.generate_insert_query(
+    "storage_outcominginvoices", 
     ["storage_id", "date", "name", "position"]
 )
-update_outcomming_invoices = generators.generate_update_query(
-    "storage_outcomminginvoices"
+update_outcoming_invoices = generators.generate_update_query(
+    "storage_outcominginvoices"
 )
-delete_outcomming_invoices = generators.generate_delete_query(
-    "storage_outcomminginvoices"
+delete_outcoming_invoices = generators.generate_delete_query(
+    "storage_outcominginvoices"
 )
 select_outcoming_invoices = generators.generate_select_query(
     "storage_outcominginvoices"

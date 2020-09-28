@@ -88,7 +88,6 @@ class Incoming(View):
         context = {
             "incoming": incoming
         }
-        print(incoming)
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -189,15 +188,36 @@ class Outcoming(View):
     def get(self, request, *args, **kwargs):
         outcoming = requests.select_outcoming_invoices()
         context = {
-            "outcoming_set": outcoming
+            "outcoming": outcoming
         }
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        pass
+        outcoming = json.loads(request.body)
+        requests.add_outcoming_invoices(
+            outcoming["storage_number"],
+            datetime.strftime(datetime.now(), "%Y.%m.%d"),
+            outcoming["name"],
+            outcoming["position"]
+        )
+        return HttpResponse("ok"), 200
 
     def put(self, request, *args, **kwargs):
-        pass
+        outcoming = json.loads(request.body)
+        requests.update_outcoming_invoices(
+            column=outcoming["column"],
+            value=outcoming["value"],
+            id=int(outcoming["id"])
+        )
+        return HttpResponse("ok"), 200
+
+    def delete(self, request, *args, **kwargs):
+        outcom = json.loads(request.body)
+        requests.delete_outcoming_invoices(
+            id=outcom["Number"]
+        )
+        return HttpResponse("ok"), 200
+
 
 
 def list_of_inventory_from_storage(request):

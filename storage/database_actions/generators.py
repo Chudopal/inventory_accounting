@@ -26,9 +26,7 @@ def generate_insert_query(table_name: str, columns: list):
             sql.SQL(f"INSERT INTO {table_name}"\
                 f"({', '.join(columns)}) VALUES ({', '.join(values)});")
         )
-        print(f"INSERT INTO {table_name}"\
-                f"({', '.join(columns)}) VALUES ({', '.join(values)});")
-
+        
     return query
 
 
@@ -150,10 +148,6 @@ def generate_select_query(*tables):
             order_by_str = ""
 
         CURSOR.execute(
-            f"SELECT {', '.join(columns)}"\
-            f" FROM {tables_join} {conditions_str} {order_by_str};"
-        )
-        print(
             f"SELECT {', '.join(columns)}"\
             f" FROM {tables_join} {conditions_str} {order_by_str};"
         )
